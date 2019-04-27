@@ -19,6 +19,7 @@ namespace Snobfox.Player {
 		private ReplaySubject<IReadOnlyDictionary<GameObject, int>> _playerChanges = new ReplaySubject<IReadOnlyDictionary<GameObject, int>>(1);
 
 		private DiContainer _container;
+		private Config _config;
 
 		public IObservable<IReadOnlyDictionary<GameObject, int>> PlayerChanges => _playerChanges;
 
@@ -27,9 +28,11 @@ namespace Snobfox.Player {
 
 		[Inject]
 		private void Compositor(
-			DiContainer container
+			DiContainer container,
+			Config config
 			) {
 			_container = container;
+			_config = config;
 
 			_players = new Dictionary<GameObject, int>();
 
@@ -38,10 +41,11 @@ namespace Snobfox.Player {
 			}
 		}
 
-		public void AddPlayer(GameObject playerObject, int playerId) {
+		public void AddPlayer(GameObject playerObject, int playerID) {
 			playerObject = _container.InstantiatePrefab(PlayerPrefab, transform);
-			playerObject.name = $"Player {playerId}";
-			_players.Add(playerObject, playerId);
+			playerObject.name = $"Player {playerID}";
+			playerObject.layer = _config.PlayerLayers[playerID];
+			_players.Add(playerObject, playerID);
 			_playerChanges.OnNext(_players);
 		}
 	}

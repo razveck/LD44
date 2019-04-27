@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Rewired;
+using Snobfox.Player.Skills;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -13,15 +14,21 @@ using Zenject;
 namespace Snobfox.Player {
 	public class PlayerAttack : MonoBehaviour {
 
+		private Config _config;
+
 		private ObjectPool _pool;
 		private int _playerID;
 
 		public Transform ShootPoint;
+		public Skill[] Skills;
 
 		[Inject]
 		private void Compositor(
+			Config config,
 			PlayerManager manager
 			) {
+			_config = config;
+
 			_pool = GetComponent<ObjectPool>();
 
 			manager.PlayerChanges
@@ -38,11 +45,13 @@ namespace Snobfox.Player {
 
 		private async void Update() {
 			if(ReInput.players.GetPlayer(_playerID).GetButtonDown(RewiredConsts.Action.Skill1)){
-				var shooty = await _pool.RequestAsync<Rigidbody>();
-				shooty.transform.SetParent(null);
-				shooty.transform.position = ShootPoint == null ? transform.position : ShootPoint.position;
-				shooty.gameObject.SetActive(true);
-				shooty.velocity = transform.forward * 10;
+				var shoot = await _pool.RequestAsync<Rigidbody>();
+				shoot.transform.SetParent(null);
+				shoot.transform.position = ShootPoint == null ? transform.position : ShootPoint.position;
+				shoot.gameObject.layer = _config.AttackLayers[_playerID];
+
+				shoot.gameObject.SetActive(true);
+				shoot.velocity = transform.forward * 10;
 			}
 		}
 	}

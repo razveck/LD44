@@ -104,6 +104,8 @@ GameObject:
   - component: {fileID: 7959372735545478599}
   - component: {fileID: 4221766364410115338}
   - component: {fileID: 7758327496624736735}
+  - component: {fileID: 7743309814268810115}
+  - component: {fileID: 9220552111208249921}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -186,6 +188,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShootPoint: {fileID: 5748905435813867255}
+  Skills: []
+--- !u!65 &7743309814268810115
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7959372735545478598}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1.9874678}
+  m_Center: {x: 0, y: 0, z: 0.5}
+--- !u!114 &9220552111208249921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7959372735545478598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5147397e7e3ab2429f8060cb6ce0ff6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7959372737267183894
 GameObject:
   m_ObjectHideFlags: 0
