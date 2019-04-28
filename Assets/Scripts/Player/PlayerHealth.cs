@@ -5,33 +5,39 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Sirenix.OdinInspector;
+using UniRx;
 using UnityEngine;
 
 namespace Snobfox.Player {
-	public class PlayerHealth : MonoBehaviour {
+	public class PlayerHealth : SerializedMonoBehaviour {
 
-		[Sirenix.Serialization.OdinSerialize]
-		public Dictionary<BodyPart, int> BodyParts;
+		private ReplaySubject<IReadOnlyDictionary<BodyPart, int>> _healthChanges = new ReplaySubject<IReadOnlyDictionary<BodyPart, int>>(1);
+
+		private Dictionary<BodyPart, int> _bodyPartHealth;
+
+		public List<BodyPart> BodyParts;
+
+		public IObservable<IReadOnlyDictionary<BodyPart, int>> HealthChanges => _healthChanges;
 
 		private void Start() {
+			_bodyPartHealth =  new Dictionary<BodyPart, int>();
 			foreach(var item in BodyParts) {
-				BodyParts[item.Key] = item.Key.MaxHealth;
+				_bodyPartHealth.Add(item, item.MaxHealth);
 			}
-		}
-
-		// Update is called once per frame
-		private void Update() {
-
+			_healthChanges.OnNext(_bodyPartHealth);
 		}
 
 		public void DealDamage(DamageType damage) {
 			foreach(var item in damage.AffectedParts) {
-				if(BodyParts.ContainsKey(item) == false)
+				if(_bodyPartHealth.ContainsKey(item) == false)
 					continue;
 
-				BodyParts[item] -= damage.Amount;
+				_bodyPartHealth[item] -= damage.Amount;
 
-				if(BodyParts[item] <= 0)
+				_healthChanges.OnNext(_bodyPartHealth);
+
+				if(_bodyPartHealth[item] <= 0)
 					Debug.Log($"{item.Name} is DED");
 			}
 		}

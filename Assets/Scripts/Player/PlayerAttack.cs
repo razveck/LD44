@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Rewired;
 using Snobfox.Player.Skills;
+using Snobfox.Utility;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -35,9 +36,8 @@ namespace Snobfox.Player {
 				.TakeUntilDestroy(this)
 				.Where(x => x.ContainsKey(gameObject))
 				.Subscribe(x => {
-					int id = 0;
-					if(x.TryGetValue(gameObject, out id)){
-						_playerID = id;
+					if(x.TryGetValue(gameObject, out var player)){
+						_playerID = player.Id;
 					}
 
 				});
@@ -48,7 +48,7 @@ namespace Snobfox.Player {
 				var shoot = await _pool.RequestAsync<Rigidbody>();
 				shoot.transform.SetParent(null);
 				shoot.transform.position = ShootPoint == null ? transform.position : ShootPoint.position;
-				shoot.gameObject.layer = _config.AttackLayers[_playerID];
+				shoot.gameObject.SetHierarchyLayer(_config.AttackLayers[_playerID]);
 
 				shoot.gameObject.SetActive(true);
 				shoot.velocity = transform.forward * 10;

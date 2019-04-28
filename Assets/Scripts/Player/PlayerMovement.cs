@@ -32,9 +32,8 @@ namespace Snobfox.Player {
 				.TakeUntilDestroy(this)
 				.Where(x => x.ContainsKey(gameObject))
 				.Subscribe(x => {
-					int id = 0;
-					if(x.TryGetValue(gameObject, out id)){
-						_playerID = id;
+					if(x.TryGetValue(gameObject, out var player)){
+						_playerID = player.Id;
 					}
 
 				});
