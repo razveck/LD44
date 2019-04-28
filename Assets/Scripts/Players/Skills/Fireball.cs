@@ -2,8 +2,8 @@
 
 using UnityEngine;
 
-namespace Snobfox.Player {
-	public class Fireball : MonoBehaviour {
+namespace Snobfox.Players.Skills {
+	public class Fireball : SkillBase {
 
 		public Vector3 Velocity;
 		public DamageType Damage;

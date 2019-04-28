@@ -10,7 +10,7 @@ using UniRx;
 using UnityEngine;
 using Zenject;
 
-namespace Snobfox.Player {
+namespace Snobfox.Players {
 	public sealed class PlayerMovement : MonoBehaviour {
 
 		private Vector3 _moveInput;

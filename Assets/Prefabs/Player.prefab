@@ -188,7 +188,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShootPoint: {fileID: 5748905435813867255}
-  Skills: []
+  Skills:
+  - {fileID: 0}
 --- !u!65 &7743309814268810115
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Snobfox.Player.Skills {
-	[CreateAssetMenu(fileName = nameof(Skill), menuName = "Snobfox/Skill")]
-	public class Skill : ScriptableObject{
+namespace Snobfox.Players.Skills {
+	[CreateAssetMenu(fileName = nameof(SkillConfig), menuName = "Snobfox/Skill")]
+	public class SkillConfig : ScriptableObject{
 		public DamageType[] Damage;
 		public GameObject Prefab;
 	}
