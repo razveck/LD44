@@ -9,7 +9,7 @@ namespace Snobfox {
 
 		public override void InstallBindings() {
 			Container.Bind<Config>().ToSelf().FromInstance(Config).AsSingle();
+			Container.BindInterfacesAndSelfTo<GameContext>().AsSingle();
 		}
-
 	}
 }

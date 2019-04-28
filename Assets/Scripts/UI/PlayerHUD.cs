@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Snobfox.Player;
+using Snobfox.Players;
 using TMPro;
 using UniRx;
 using UnityEngine;
@@ -44,7 +44,7 @@ namespace Snobfox.UI {
 
 							foreach(var part in health.BodyParts) {
 								var healthHud = container.InstantiatePrefab(HealthHUDPrefab);
-								healthHud.transform.SetParent(transform);
+								healthHud.transform.SetParent(transform, true);
 
 								healthHud.GetComponent<HealthHUD>().Health = health;
 								healthHud.GetComponent<HealthHUD>().Part = part;
@@ -55,7 +55,7 @@ namespace Snobfox.UI {
 						}
 					}
 
-					transform.SetParent(_canvas.transform);
+					transform.SetParent(_canvas.transform, true);
 					transform.localScale = Vector3.one;
 				});
 		}

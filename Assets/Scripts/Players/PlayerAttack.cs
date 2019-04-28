@@ -6,22 +6,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Rewired;
-using Snobfox.Player.Skills;
+using Snobfox.Players.Skills;
 using Snobfox.Utility;
 using UniRx;
 using UnityEngine;
 using Zenject;
 
-namespace Snobfox.Player {
+namespace Snobfox.Players {
 	public class PlayerAttack : MonoBehaviour {
 
 		private Config _config;
 
 		private ObjectPool _pool;
-		private int _playerID;
+		private Player _player;
 
 		public Transform ShootPoint;
-		public Skill[] Skills;
+		public SkillConfig[] Skills;
 
 		[Inject]
 		private void Compositor(
@@ -36,19 +36,18 @@ namespace Snobfox.Player {
 				.TakeUntilDestroy(this)
 				.Where(x => x.ContainsKey(gameObject))
 				.Subscribe(x => {
-					if(x.TryGetValue(gameObject, out var player)){
-						_playerID = player.Id;
-					}
+					x.TryGetValue(gameObject, out _player);
+					
 
 				});
 		}
 
 		private async void Update() {
-			if(ReInput.players.GetPlayer(_playerID).GetButtonDown(RewiredConsts.Action.Skill1)){
+			if(ReInput.players.GetPlayer(_player.Id).GetButtonDown(RewiredConsts.Action.Skill1)){
 				var shoot = await _pool.RequestAsync<Rigidbody>();
 				shoot.transform.SetParent(null);
 				shoot.transform.position = ShootPoint == null ? transform.position : ShootPoint.position;
-				shoot.gameObject.SetHierarchyLayer(_config.AttackLayers[_playerID]);
+				shoot.gameObject.SetHierarchyLayer(_config.AttackLayers[_player.Id]);
 
 				shoot.gameObject.SetActive(true);
 				shoot.velocity = transform.forward * 10;

@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Snobfox.Player;
+using Snobfox.Players;
 using TMPro;
 using UniRx;
 using UnityEngine;

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Snobfox.Player {
+namespace Snobfox.Players {
 	[CreateAssetMenu(fileName = nameof(DamageType), menuName = "Snobfox/DamageType")]
 	public class DamageType : ScriptableObject{
 		public BodyPart[] AffectedParts;

@@ -10,7 +10,7 @@ using UniRx;
 using UnityEngine;
 using Zenject;
 
-namespace Snobfox.Player {
+namespace Snobfox.Players {
 	public sealed class PlayerManager : MonoBehaviour {
 		/// <summary>
 		/// Player GameObject, Rewired PlayerID
@@ -21,6 +21,7 @@ namespace Snobfox.Player {
 
 		private DiContainer _container;
 		private Config _config;
+		private GameContext _context;
 
 		public IObservable<IReadOnlyDictionary<GameObject, Player>> PlayerChanges => _playerChanges;
 
@@ -31,10 +32,12 @@ namespace Snobfox.Player {
 		[Inject]
 		private void Compositor(
 			DiContainer container,
+			GameContext context,
 			Config config
 			) {
 			_container = container;
 			_config = config;
+			_context = context;
 
 			_players = new Dictionary<GameObject, Player>();
 
@@ -50,6 +53,10 @@ namespace Snobfox.Player {
 			playerObject.gameObject.SetHierarchyLayer(_config.PlayerLayers[playerID]);
 			Player player = new Player { Id = playerID };
 			_players.Add(playerObject, player);
+		}
+
+		public void NotifyPlayerDeath(Player player){
+			_context.EndMatch(_players.Select(x => x.Value).Where(x => x != player).FirstOrDefault());
 		}
 	}
 }
