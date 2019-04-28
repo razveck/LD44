@@ -16,7 +16,7 @@ namespace Snobfox.Players {
 		private Vector3 _moveInput;
 		private Vector3 _aimInput;
 		private Rigidbody _rigid;
-		private int _playerID;
+		private Player _player;
 
 		public float MoveSpeed = 1;
 		public float TurnSpeed = 1;
@@ -30,25 +30,22 @@ namespace Snobfox.Players {
 
 			manager.PlayerChanges
 				.TakeUntilDestroy(this)
-				.Where(x => x.ContainsKey(gameObject))
+				.Where(x => x.Select(y => y.PlayerObject).Contains(gameObject))
 				.Subscribe(x => {
-					if(x.TryGetValue(gameObject, out var player)){
-						_playerID = player.Id;
-					}
-
+					_player = x.Where(y => y.PlayerObject == gameObject).FirstOrDefault();
 				});
 		}
 
 		private void Update() {
 			
-			_moveInput.x = ReInput.players.GetPlayer(_playerID).GetAxis(RewiredConsts.Action.MoveX);
-			_moveInput.z = ReInput.players.GetPlayer(_playerID).GetAxis(RewiredConsts.Action.MoveY);
+			_moveInput.x = ReInput.players.GetPlayer(_player.Id).GetAxis(RewiredConsts.Action.MoveX);
+			_moveInput.z = ReInput.players.GetPlayer(_player.Id).GetAxis(RewiredConsts.Action.MoveY);
 			
-			_rigid.MovePosition(transform.position + _moveInput * MoveSpeed);
+			_rigid.MovePosition(transform.position + _moveInput * MoveSpeed * Time.deltaTime);
 			_moveInput = Vector3.zero;
 
-			_aimInput.x = ReInput.players.GetPlayer(_playerID).GetAxis(RewiredConsts.Action.AimX);
-			_aimInput.z = ReInput.players.GetPlayer(_playerID).GetAxis(RewiredConsts.Action.AimY);
+			_aimInput.x = ReInput.players.GetPlayer(_player.Id).GetAxis(RewiredConsts.Action.AimX);
+			_aimInput.z = ReInput.players.GetPlayer(_player.Id).GetAxis(RewiredConsts.Action.AimY);
 
 			transform.LookAt(transform.position + _aimInput);
 			_aimInput = Vector3.zero;

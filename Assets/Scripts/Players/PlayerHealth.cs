@@ -31,9 +31,9 @@ namespace Snobfox.Players {
 
 			manager.PlayerChanges
 				.TakeUntilDestroy(this)
-				.Where(x => x.ContainsKey(gameObject))
+				.Where(x => x.Select(y => y.PlayerObject).Contains(gameObject))
 				.Subscribe(x => {
-					x.TryGetValue(gameObject, out _player);
+					_player = x.Where(y => y.PlayerObject == gameObject).FirstOrDefault();
 				});
 
 			_bodyPartHealth = new Dictionary<BodyPart, int>();

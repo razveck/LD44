@@ -15,15 +15,15 @@ namespace Snobfox.Players {
 		/// <summary>
 		/// Player GameObject, Rewired PlayerID
 		/// </summary>
-		private Dictionary<GameObject, Player> _players;
+		private List<Player> _players;
 
-		private ReplaySubject<IReadOnlyDictionary<GameObject, Player>> _playerChanges = new ReplaySubject<IReadOnlyDictionary<GameObject, Player>>(1);
+		private ReplaySubject<IReadOnlyList<Player>> _playerChanges = new ReplaySubject<IReadOnlyList<Player>>(1);
 
 		private DiContainer _container;
 		private Config _config;
 		private GameContext _context;
-
-		public IObservable<IReadOnlyDictionary<GameObject, Player>> PlayerChanges => _playerChanges;
+		
+		public IObservable<IReadOnlyList<Player>> PlayerChanges => _playerChanges;
 
 		public int PlayerCount;
 		public GameObject PlayerPrefab;
@@ -39,7 +39,7 @@ namespace Snobfox.Players {
 			_config = config;
 			_context = context;
 
-			_players = new Dictionary<GameObject, Player>();
+			_players = new List<Player>();
 
 			for(int i = 0; i < PlayerCount; i++) {
 				AddPlayer(null, i);
@@ -51,12 +51,12 @@ namespace Snobfox.Players {
 			playerObject = _container.InstantiatePrefab(PlayerPrefab, transform);
 			playerObject.name = $"Player {playerID}";
 			playerObject.gameObject.SetHierarchyLayer(_config.PlayerLayers[playerID]);
-			Player player = new Player { Id = playerID };
-			_players.Add(playerObject, player);
+			Player player = new Player { Id = playerID, PlayerObject = playerObject };
+			_players.Add(player);
 		}
 
 		public void NotifyPlayerDeath(Player player){
-			_context.EndMatch(_players.Select(x => x.Value).Where(x => x != player).FirstOrDefault());
+			_context.EndMatch(_players.Where(x => x != player).FirstOrDefault());
 		}
 	}
 }

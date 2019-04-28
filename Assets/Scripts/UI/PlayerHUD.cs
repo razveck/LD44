@@ -33,18 +33,17 @@ namespace Snobfox.UI {
 			manager.PlayerChanges
 				.TakeUntilDestroy(this)
 				.Subscribe(x => {
-					foreach(var pair in x) {
-						if(pair.Value.Id == PlayerID) {
-							PlayerLabel.text = $"Player {pair.Value.Id + 1}";
+					foreach(var player in x) {
+						if(player.Id == PlayerID) {
+							PlayerLabel.text = $"Player {player.Id + 1}";
 							
-							var health = pair.Key.GetComponent<PlayerHealth>();
+							var health = player.PlayerObject.GetComponent<PlayerHealth>();
 							if(health == null) {
-								throw new Exception($"Player{pair.Value.Id} has no health");
+								throw new Exception($"Player{player.Id} has no health");
 							}
 
 							foreach(var part in health.BodyParts) {
-								var healthHud = container.InstantiatePrefab(HealthHUDPrefab);
-								healthHud.transform.SetParent(transform, true);
+								var healthHud = container.InstantiatePrefab(HealthHUDPrefab, transform);
 
 								healthHud.GetComponent<HealthHUD>().Health = health;
 								healthHud.GetComponent<HealthHUD>().Part = part;
@@ -54,9 +53,6 @@ namespace Snobfox.UI {
 							break;
 						}
 					}
-
-					transform.SetParent(_canvas.transform, true);
-					transform.localScale = Vector3.one;
 				});
 		}
 

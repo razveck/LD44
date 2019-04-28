@@ -12,6 +12,6 @@ namespace Snobfox.Players {
 	public sealed class Player {
 		public int Id;
 		public GameObject HUD;
-
+		public GameObject PlayerObject;
 	}
 }

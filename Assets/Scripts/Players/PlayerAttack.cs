@@ -16,6 +16,7 @@ namespace Snobfox.Players {
 	public class PlayerAttack : MonoBehaviour {
 
 		private Config _config;
+		private DiContainer _container;
 
 		private ObjectPool _pool;
 		private Player _player;
@@ -25,25 +26,33 @@ namespace Snobfox.Players {
 
 		[Inject]
 		private void Compositor(
+			DiContainer container,
 			Config config,
 			PlayerManager manager
 			) {
 			_config = config;
+			_container = container;
 
 			_pool = GetComponent<ObjectPool>();
 
 			manager.PlayerChanges
 				.TakeUntilDestroy(this)
-				.Where(x => x.ContainsKey(gameObject))
+				.Where(x => x.Select(y => y.PlayerObject).Contains(gameObject))
 				.Subscribe(x => {
-					x.TryGetValue(gameObject, out _player);
-					
-
+					_player = x.Where(y => y.PlayerObject == gameObject).FirstOrDefault();
 				});
 		}
 
 		private async void Update() {
-			if(ReInput.players.GetPlayer(_player.Id).GetButtonDown(RewiredConsts.Action.Skill1)){
+
+			foreach(var skill in Skills) {
+				if(ReInput.players.GetPlayer(_player.Id).GetButtonDown(skill.Action)) {
+					var skillObj = _container.InstantiatePrefab(skill.Prefab);
+
+				}
+			}
+
+			if(ReInput.players.GetPlayer(_player.Id).GetButtonDown(RewiredConsts.Action.Skill1)) {
 				var shoot = await _pool.RequestAsync<Rigidbody>();
 				shoot.transform.SetParent(null);
 				shoot.transform.position = ShootPoint == null ? transform.position : ShootPoint.position;
