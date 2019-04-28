@@ -142,7 +142,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
@@ -188,7 +188,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShootPoint: {fileID: 5748905435813867255}
-  Skills: []
+  Skills:
+  - {fileID: 11400000, guid: 10f283cb954c8794ebd361e8cce5e5bd, type: 2}
+  - {fileID: 11400000, guid: 1c154d16f2f2a5f4ab47df6628161682, type: 2}
 --- !u!65 &7743309814268810115
 BoxCollider:
   m_ObjectHideFlags: 0

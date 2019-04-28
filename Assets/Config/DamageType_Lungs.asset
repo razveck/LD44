@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 445dfd2b7c04bf74f90bf422e468ee8c, type: 3}
-  m_Name: BodyPart_Head
+  m_Script: {fileID: 11500000, guid: 2f7d11f1a5c1f444fba05e7d751d8868, type: 3}
+  m_Name: DamageType_Lungs
   m_EditorClassIdentifier: 
-  Name: Head
-  MaxHealth: 10
+  AffectedParts:
+  - {fileID: 11400000, guid: 3df8977fe19179645b6771c1e0ef7638, type: 2}
+  Amount: 1

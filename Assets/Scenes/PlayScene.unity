@@ -597,11 +597,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 43262329049389989, guid: cb69531c3da4522488bcf919a17ba768,
-        type: 3}
-      propertyPath: PlayerID
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7376565694674310199, guid: cb69531c3da4522488bcf919a17ba768,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -660,6 +655,11 @@ PrefabInstance:
     - target: {fileID: 912926650230455972, guid: cb69531c3da4522488bcf919a17ba768,
         type: 3}
       propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 43262329049389989, guid: cb69531c3da4522488bcf919a17ba768,
+        type: 3}
+      propertyPath: PlayerID
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

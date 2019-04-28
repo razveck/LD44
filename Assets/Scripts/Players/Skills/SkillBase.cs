@@ -10,12 +10,15 @@ using UnityEngine;
 namespace Snobfox.Players.Skills {
 	public class SkillBase : MonoBehaviour {
 
+		protected Player _player;
+		protected DamageType[] _damage;
+
 		public SkillConfig Config;
-		public Player Player;
 
-		public void Init(Player player) {
-
-
+		public virtual void Initialize(Player player) {
+			_player = player;
+			_damage = Config.Damage;
+			OnCast();
 		}
 
 		// Use this for initialization

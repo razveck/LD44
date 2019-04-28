@@ -43,23 +43,21 @@ namespace Snobfox.Players {
 				});
 		}
 
-		private async void Update() {
+		private void Update() {
 
-			foreach(var skill in Skills) {
-				if(ReInput.players.GetPlayer(_player.Id).GetButtonDown(skill.Action)) {
-					var skillObj = _container.InstantiatePrefab(skill.Prefab);
+			foreach(var item in Skills) {
+				if(ReInput.players.GetPlayer(_player.Id).GetButtonDown(item.Action)) {
+					var skill = _container.InstantiatePrefab(item.Prefab).GetComponent<SkillBase>();
+					skill.Initialize(_player);
 
+					skill.gameObject.SetHierarchyLayer(_config.AttackLayers[_player.Id]);
+					skill.gameObject.SetActive(true);
+
+					var health = GetComponent<PlayerHealth>();
+					foreach(var dmg in item.Damage) {
+						health.DealDamage(dmg);
+					}
 				}
-			}
-
-			if(ReInput.players.GetPlayer(_player.Id).GetButtonDown(RewiredConsts.Action.Skill1)) {
-				var shoot = await _pool.RequestAsync<Rigidbody>();
-				shoot.transform.SetParent(null);
-				shoot.transform.position = ShootPoint == null ? transform.position : ShootPoint.position;
-				shoot.gameObject.SetHierarchyLayer(_config.AttackLayers[_player.Id]);
-
-				shoot.gameObject.SetActive(true);
-				shoot.velocity = transform.forward * 10;
 			}
 		}
 	}

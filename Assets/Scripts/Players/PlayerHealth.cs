@@ -6,12 +6,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Sirenix.OdinInspector;
+using Snobfox.Players.Skills;
 using UniRx;
 using UnityEngine;
 using Zenject;
 
 namespace Snobfox.Players {
-	public class PlayerHealth : SerializedMonoBehaviour {
+	public class PlayerHealth : SerializedMonoBehaviour, ICollisionSource {
 
 		private ReplaySubject<IReadOnlyDictionary<BodyPart, int>> _healthChanges = new ReplaySubject<IReadOnlyDictionary<BodyPart, int>>(1);
 
@@ -57,10 +58,24 @@ namespace Snobfox.Players {
 			}
 
 			if(_bodyPartHealth.Values.Sum() <= 0) {
-				Debug.Log($"Player {_player} dead");
+				Debug.Log($"Player {_player.Id} dead");
 				_manager.NotifyPlayerDeath(_player);
 				Destroy(gameObject);
 			}
+		}
+
+		public CollisionResult Collide(object source, object parameters) {
+			var result = new CollisionResult();
+			if(!(source is SkillBase))
+				return result;
+
+			var damage = (DamageType[])parameters;
+			foreach(var item in damage) {
+				DealDamage(item);
+			}
+			result.ShouldDestroy = true;
+
+			return result;
 		}
 	}
 }
