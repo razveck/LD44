@@ -15,4 +15,5 @@ MonoBehaviour:
   Action: 13
   Damage:
   - {fileID: 11400000, guid: ef421f148e70f724180e70f231471312, type: 2}
+  - {fileID: 11400000, guid: 71c120a00d1083744a71de61f9f7d335, type: 2}
   Prefab: {fileID: 1976247635026320898, guid: 9807c4a27a13b834c844237129a28dc6, type: 3}

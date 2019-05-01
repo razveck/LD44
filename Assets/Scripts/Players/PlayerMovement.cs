@@ -20,7 +20,11 @@ namespace Snobfox.Players {
 
 		public float MoveSpeed = 1;
 		public float TurnSpeed = 1;
-		public float TurnIncrement = 45;
+		public GameObject Arrow;
+
+		public Animator Anim;
+		public RuntimeAnimatorController FoxAnim;
+		public RuntimeAnimatorController WarlockAnim;
 
 		[Inject]
 		private void Compositor(
@@ -33,21 +37,26 @@ namespace Snobfox.Players {
 				.Where(x => x.Select(y => y.PlayerObject).Contains(gameObject))
 				.Subscribe(x => {
 					_player = x.Where(y => y.PlayerObject == gameObject).FirstOrDefault();
+					Anim.runtimeAnimatorController = _player.Id == 0 ? FoxAnim : WarlockAnim;
 				});
 		}
 
 		private void Update() {
-			
+
 			_moveInput.x = ReInput.players.GetPlayer(_player.Id).GetAxis(RewiredConsts.Action.MoveX);
 			_moveInput.z = ReInput.players.GetPlayer(_player.Id).GetAxis(RewiredConsts.Action.MoveY);
-			
+
 			_rigid.MovePosition(transform.position + _moveInput * MoveSpeed * Time.deltaTime);
-			_moveInput = Vector3.zero;
 
 			_aimInput.x = ReInput.players.GetPlayer(_player.Id).GetAxis(RewiredConsts.Action.AimX);
 			_aimInput.z = ReInput.players.GetPlayer(_player.Id).GetAxis(RewiredConsts.Action.AimY);
 
-			transform.LookAt(transform.position + _aimInput);
+			Arrow.transform.parent.LookAt(Arrow.transform.parent.position + _aimInput);
+
+			Anim.SetFloat("MoveX", _moveInput.x);
+			Anim.SetFloat("MoveY", _moveInput.z);
+
+			_moveInput = Vector3.zero;
 			_aimInput = Vector3.zero;
 		}
 	}

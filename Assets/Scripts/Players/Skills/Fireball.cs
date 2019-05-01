@@ -14,9 +14,9 @@ namespace Snobfox.Players.Skills {
 			base.Initialize(player);
 
 			_rigid = GetComponent<Rigidbody>();
-			_velocity = player.PlayerObject.transform.forward * Speed;
-			transform.position = player.PlayerObject.GetComponent<PlayerAttack>().ShootPoint.position;
-			transform.forward = player.PlayerObject.transform.forward;
+			transform.position = player.PlayerObject.GetComponent<PlayerMovement>().Arrow.transform.position;
+			transform.forward = player.PlayerObject.GetComponent<PlayerMovement>().Arrow.transform.parent.forward;
+			_velocity = transform.forward * Speed;
 		}
 
 		public void Update() {
@@ -25,8 +25,10 @@ namespace Snobfox.Players.Skills {
 
 		public void OnCollisionEnter(Collision collision) {
 			var collider = collision.gameObject.GetComponent<ICollisionSource>();
-			if(collider == null)
+			if(collider == null){
+				Destroy(gameObject);
 				return;
+			}
 
 			var result = collider.Collide(this, _damage);
 			OnHit();

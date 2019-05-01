@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Lungs
   MaxHealth: 10
+  Sprite: {fileID: 21300000, guid: d1a117b5b4e681d48b25d46674ef274a, type: 3}

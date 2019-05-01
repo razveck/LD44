@@ -19,6 +19,7 @@ namespace Snobfox.UI {
 		public BodyPart Part;
 
 		public TextMeshProUGUI PartName;
+		public Image Icon;
 		public Image HealthBar;
 
 		public void Init() {
@@ -29,9 +30,11 @@ namespace Snobfox.UI {
 					Debug.Log("Health Changed!");
 					if(x.TryGetValue(Part, out int hp)) {
 						PartName.text = Part.Name;
+						Icon.sprite = Part.Sprite;
 						HealthBar.fillAmount = (float)hp / Part.MaxHealth;
 					} else {
 						PartName.text = "N/A";
+						Icon.color = new Color(1, 0, 1);
 						HealthBar.fillAmount = 0;
 					}
 				});

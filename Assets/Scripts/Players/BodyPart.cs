@@ -14,5 +14,6 @@ namespace Snobfox.Players {
 	public class BodyPart : ScriptableObject {
 		public string Name;
 		public int MaxHealth;
+		public Sprite Sprite;
 	}
 }

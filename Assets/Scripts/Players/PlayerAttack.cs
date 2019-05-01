@@ -21,7 +21,6 @@ namespace Snobfox.Players {
 		private ObjectPool _pool;
 		private Player _player;
 
-		public Transform ShootPoint;
 		public SkillConfig[] Skills;
 
 		[Inject]
