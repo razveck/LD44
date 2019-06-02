@@ -275,7 +275,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 116
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &7959372735545478599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,6 +288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9756f7acdf9070a47af647fca150b40b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CanMove: 0
   MoveSpeed: 6
   TurnSpeed: 0
   Arrow: {fileID: 124964245}
@@ -324,6 +325,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 10f283cb954c8794ebd361e8cce5e5bd, type: 2}
   - {fileID: 11400000, guid: 1c154d16f2f2a5f4ab47df6628161682, type: 2}
   - {fileID: 11400000, guid: 22cdb4608ad81e941b916e3edd7410fc, type: 2}
+  CanAttack: 0
 --- !u!114 &9220552111208249921
 MonoBehaviour:
   m_ObjectHideFlags: 0

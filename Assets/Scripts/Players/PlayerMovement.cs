@@ -18,7 +18,7 @@ namespace Snobfox.Players {
 		private Rigidbody _rigid;
 		private Player _player;
 
-		public bool CanMove;
+		public bool CanMove = true;
 		public float MoveSpeed = 1;
 		public float TurnSpeed = 1;
 		public GameObject Arrow;

@@ -14,6 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Action: 14
   Damage:
-  - {fileID: 11400000, guid: e08aae021dd35cb46ac3b9e60b5325dd, type: 2}
   - {fileID: 11400000, guid: 71c120a00d1083744a71de61f9f7d335, type: 2}
   Prefab: {fileID: 1976247635026320898, guid: 854118b836ce61147a8c0b8003e05418, type: 3}

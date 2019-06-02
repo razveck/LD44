@@ -44,4 +44,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Config: {fileID: 11400000, guid: 22cdb4608ad81e941b916e3edd7410fc, type: 2}
-  Speed: 10000
+  Distance: 6
+  Speed: 0
+  CollisionMask:
+    serializedVersion: 2
+    m_Bits: 15667
