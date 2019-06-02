@@ -323,6 +323,7 @@ MonoBehaviour:
   Skills:
   - {fileID: 11400000, guid: 10f283cb954c8794ebd361e8cce5e5bd, type: 2}
   - {fileID: 11400000, guid: 1c154d16f2f2a5f4ab47df6628161682, type: 2}
+  - {fileID: 11400000, guid: 22cdb4608ad81e941b916e3edd7410fc, type: 2}
 --- !u!114 &9220552111208249921
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -18,6 +18,7 @@ namespace Snobfox.Players {
 		private Rigidbody _rigid;
 		private Player _player;
 
+		public bool CanMove;
 		public float MoveSpeed = 1;
 		public float TurnSpeed = 1;
 		public GameObject Arrow;
@@ -30,6 +31,8 @@ namespace Snobfox.Players {
 		private void Compositor(
 			PlayerManager manager
 			) {
+			CanMove = true;
+
 			_rigid = GetComponent<Rigidbody>();
 
 			manager.PlayerChanges
@@ -46,16 +49,16 @@ namespace Snobfox.Players {
 			_moveInput.x = ReInput.players.GetPlayer(_player.Id).GetAxis(RewiredConsts.Action.MoveX);
 			_moveInput.z = ReInput.players.GetPlayer(_player.Id).GetAxis(RewiredConsts.Action.MoveY);
 
-			_rigid.MovePosition(transform.position + _moveInput * MoveSpeed * Time.deltaTime);
-
 			_aimInput.x = ReInput.players.GetPlayer(_player.Id).GetAxis(RewiredConsts.Action.AimX);
 			_aimInput.z = ReInput.players.GetPlayer(_player.Id).GetAxis(RewiredConsts.Action.AimY);
 
 			Arrow.transform.parent.LookAt(Arrow.transform.parent.position + _aimInput);
 
-			Anim.SetFloat("MoveX", _moveInput.x);
-			Anim.SetFloat("MoveY", _moveInput.z);
-
+			if(_moveInput.magnitude > 0 && CanMove) {
+				_rigid.MovePosition(transform.position + _moveInput * MoveSpeed * Time.deltaTime);
+				Anim.SetFloat("MoveX", _moveInput.x);
+				Anim.SetFloat("MoveY", _moveInput.z);
+			}
 			_moveInput = Vector3.zero;
 			_aimInput = Vector3.zero;
 		}

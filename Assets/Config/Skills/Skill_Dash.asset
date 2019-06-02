@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 879b7a1c76096f647a1ac2e047acd893, type: 3}
+  m_Name: Skill_Dash
+  m_EditorClassIdentifier: 
+  Action: 14
+  Damage:
+  - {fileID: 11400000, guid: e08aae021dd35cb46ac3b9e60b5325dd, type: 2}
+  - {fileID: 11400000, guid: 71c120a00d1083744a71de61f9f7d335, type: 2}
+  Prefab: {fileID: 1976247635026320898, guid: 854118b836ce61147a8c0b8003e05418, type: 3}
