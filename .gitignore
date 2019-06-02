@@ -19,15 +19,6 @@ Assets/AssetStoreTools*
 # Obsolete folders
 Assets/Plugins/[Pp]ackages/
 
-# Samples and documentation
-Assets/Plugins/UniRx/Examples
-Assets/Plugins/Zenject/Documentation
-Assets/Plugins/Zenject/OptionalExtras
-Assets/External/MarkLight/Examples
-Assets/External/ParadoxNotion/NodeCanvas Resources/Example Scenes
-Assets/External/Rewired/Examples
-Assets/External/Rewired/Documentation
-
 # Visual Studio 2015 cache directory
 .vs/
 
